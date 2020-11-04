@@ -21,7 +21,8 @@ const caseViewReadOnlyAdapter = require('./adapters/case-view-read-only');
 const {
     caseCorrespondentAdapter,
     correspondentTypeAdapter,
-    caseCorrespondentsAllAdapter
+    caseCorrespondentsAllAdapter,
+    caseMemberCorrespondentsAdapter
 } = require('./adapters/correspondents');
 
 module.exports = {
@@ -277,6 +278,11 @@ module.exports = {
             client: 'CASEWORK',
             endpoint: '/case/${caseId}/correspondent',
             adapter: caseCorrespondentAdapter
+        },
+        CASE_MEMBER_CORRESPONDENTS: {
+            client: 'CASEWORK',
+            endpoint: '/case/${caseId}/correspondent',
+            adapter: caseMemberCorrespondentsAdapter
         },
         CORRESPONDENT_TYPES: {
             client: 'CASEWORK',

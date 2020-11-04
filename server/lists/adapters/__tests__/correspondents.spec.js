@@ -1,7 +1,8 @@
 const {
     caseCorrespondentAdapter,
     correspondentTypeAdapter,
-    caseCorrespondentsAllAdapter
+    caseCorrespondentsAllAdapter,
+    caseMemberCorrespondentsAdapter
 } = require('../correspondents');
 
 const mockLogger = {
@@ -110,5 +111,94 @@ describe('Case Correspondents All adapter', () => {
         const results = await caseCorrespondentsAllAdapter(mockData, { logger: mockLogger });
         expect(results).toBeDefined();
         expect(results).toMatchSnapshot();
+    });
+});
+
+describe('Case Member Correspondents All adapter', () => {
+    it('should filter the data so only member of parliament are returned from the correspondents list', async () => {
+        const mockData = {
+            'correspondents': [
+                {
+                    'uuid': 'UUID_1',
+                    'created': '2020-06-04T13:38:32.52298',
+                    'type': 'APPLICANT',
+                    'caseUUID': 'CASE_UUID_1',
+                    'fullname': 'Eddie Vedder',
+                    'address': {
+                        'postcode': '',
+                        'address1': '',
+                        'address2': '',
+                        'address3': '',
+                        'country': ''
+                    },
+                    'telephone': '',
+                    'email': '',
+                    'reference': '',
+                    'externalKey': null,
+                    'isPrimary': false
+                },
+                {
+                    'uuid': 'UUID_2',
+                    'created': '2020-06-04T13:38:32.52298',
+                    'type': 'APPLICANT',
+                    'caseUUID': 'CASE_UUID_2',
+                    'fullname': 'Mike McCready',
+                    'address': {
+                        'postcode': '',
+                        'address1': '',
+                        'address2': '',
+                        'address3': '',
+                        'country': ''
+                    },
+                    'telephone': '',
+                    'email': '',
+                    'reference': '',
+                    'externalKey': null,
+                    'isPrimary': true
+                },
+                {
+                    'uuid': 'UUID_3',
+                    'created': '2020-06-04T13:38:32.52298',
+                    'type': 'MEMBER',
+                    'caseUUID': 'CASE_UUID_3',
+                    'fullname': 'Jeff Ament',
+                    'address': {
+                        'postcode': '',
+                        'address1': '',
+                        'address2': '',
+                        'address3': '',
+                        'country': ''
+                    },
+                    'telephone': '',
+                    'email': '',
+                    'reference': '',
+                    'externalKey': null,
+                    'isPrimary': false
+                },
+                {
+                    'uuid': 'UUID_4',
+                    'created': '2020-06-04T13:38:32.52298',
+                    'type': 'MEMBER',
+                    'caseUUID': 'CASE_UUID_4',
+                    'fullname': 'Stone Gossard',
+                    'address': {
+                        'postcode': '',
+                        'address1': '',
+                        'address2': '',
+                        'address3': '',
+                        'country': ''
+                    },
+                    'telephone': '',
+                    'email': '',
+                    'reference': '',
+                    'externalKey': null,
+                    'isPrimary': false
+                }
+            ]
+        };
+
+        const results = await caseMemberCorrespondentsAdapter(mockData, { logger: mockLogger });
+        expect(results).toBeDefined();
+        expect(results.length).toBe(2);
     });
 });

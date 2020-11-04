@@ -6,6 +6,11 @@ const caseCorrespondentAdapter = async (data, { logger }) => {
         ({ fullname, uuid, isPrimary }) => ({ label: fullname, value: uuid, isPrimary: isPrimary })).sort(byLabel);
 };
 
+const caseMemberCorrespondentsAdapter = async (data, { logger }) => {
+    logger.debug('REQUEST_CASE_MEMBER_CORRESPONDENTS', { correspondents: data.length });
+    return data.correspondents.filter(correspondent => correspondent.type === 'MEMBER');
+};
+
 const correspondentTypeAdapter = async (data, { logger }) => {
     logger.debug('REQUEST_CORRESPONDENT_TYPES', { types: data.length });
     return data.correspondentTypes.map(({ type, displayName }) => ({ label: displayName, value: type })).sort(byLabel);
@@ -22,6 +27,7 @@ const caseCorrespondentsAllAdapter = async (data, { logger }) => {
 
 module.exports = {
     caseCorrespondentAdapter,
+    caseMemberCorrespondentsAdapter,
     correspondentTypeAdapter,
     caseCorrespondentsAllAdapter
 };
